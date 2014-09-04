@@ -47,7 +47,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
-import org.drools.core.util.StringUtils;
+
 import org.drools.workbench.models.datamodel.oracle.DataType;
 import org.drools.workbench.models.datamodel.oracle.ModelField;
 import org.drools.workbench.models.guided.scorecard.shared.Attribute;
@@ -293,17 +293,20 @@ public class GuidedScoreCardEditor extends Composite {
         ruleAttributesGrid.setText(0, 0, GuidedScoreCardConstants.INSTANCE.ruleFlowGroup());
         ruleAttributesGrid.setText(0, 1, GuidedScoreCardConstants.INSTANCE.agendaGroup());
 
+        final String ruleFlowGroup = model.getRuleFlowGroup();
+        final String agendaGroup = model.getAgendaGroup();
+
         tbRuleFlowGroup = TextBoxFactory.getTextBox( DataType.TYPE_STRING );
-        if (!StringUtils.isEmpty(model.getRuleFlowGroup())){
-            tbRuleFlowGroup.setText(model.getRuleFlowGroup());
+        if ( !( ruleFlowGroup == null || ruleFlowGroup.isEmpty() ) ) {
+            tbRuleFlowGroup.setText( model.getRuleFlowGroup() );
         }
         tbAgendaGroup = TextBoxFactory.getTextBox( DataType.TYPE_STRING );
-        if (!StringUtils.isEmpty(model.getAgendaGroup())){
-            tbAgendaGroup.setText(model.getAgendaGroup());
+        if ( !( agendaGroup == null || agendaGroup.isEmpty() ) ) {
+            tbAgendaGroup.setText( model.getAgendaGroup() );
         }
 
-        scorecardPropertiesGrid.setWidget( 1, 0, tbRuleFlowGroup );
-        scorecardPropertiesGrid.setWidget( 1, 1, tbAgendaGroup );
+        ruleAttributesGrid.setWidget( 1, 0, tbRuleFlowGroup );
+        ruleAttributesGrid.setWidget( 1, 1, tbAgendaGroup );
 
         return ruleAttributesGrid;
     }
